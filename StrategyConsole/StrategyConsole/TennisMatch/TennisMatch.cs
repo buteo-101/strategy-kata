@@ -22,6 +22,10 @@ namespace StrategyConsole.Match
         {
             _scoreHandler = scoreHandler;
         }
+        public void ChangeRule(IScoreHandler scoreHandler)
+        {
+            _scoreHandler = scoreHandler;
+        }
 
         public void PlayerAScore()
         {

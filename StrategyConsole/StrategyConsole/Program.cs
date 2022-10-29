@@ -8,6 +8,7 @@ namespace StrategyConsole
     {
         static void Main(string[] args)
         {
+            /*
             Console.WriteLine("Starting 1st Game");
             try
             {
@@ -20,11 +21,11 @@ namespace StrategyConsole
                 match.PlayerBScore();
                 match.PlayerAScore();
                 match.PlayerAScore();
-               
+
             }
             catch (Exception e)
             {
-                Console.WriteLine($"{e.Message}");           
+                Console.WriteLine($"{e.Message}");
             }
 
             Console.WriteLine("Starting 2nd Game");
@@ -47,9 +48,35 @@ namespace StrategyConsole
             catch (Exception e)
             {
                 Console.WriteLine($"{e.Message}");
+            }
+            */
+            Console.WriteLine("Starting 3rd Game");
+
+            try
+            {
+                var firstGameHandler = new SimpleGameScoreHandler();
+                var secondGameHandler = new DeuceGameScoreHandler();
+                var match = new TennisMatch(firstGameHandler);
+
+                match.PlayerAScore();
+                match.PlayerAScore();
+                Console.WriteLine("Changing rule");
+                match.ChangeRule(secondGameHandler);
+                match.PlayerBScore();
+                match.PlayerBScore();
+                match.PlayerAScore();
+                match.PlayerBScore();
+                match.PlayerAScore();
+                match.PlayerBScore();
+                match.PlayerAScore();
+                match.PlayerAScore();
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine($"{e.Message}");
                 Console.ReadLine();
                 Environment.Exit(0);
-
             }
 
 
