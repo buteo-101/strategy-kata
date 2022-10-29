@@ -14,19 +14,19 @@ namespace StrategyConsole.ScoreHandler
         public NewScore GetNextScore(Player scorer, Player other)
         {
             Console.WriteLine($"{scorer.Name} has scored");
-            var scoreIndex = _gameScoreOptions.FindIndex(s => s == scorer.Score);
+            var scoreIndex = _gameScoreOptions.FindIndex(s => s == scorer.Score.GameScore);
             if (scoreIndex == 3)
             {             
                 return new NewScore { ScorerScore = string.Empty,  OtherScore = string.Empty };
             }
-            return new NewScore {ScorerScore=   _gameScoreOptions[++scoreIndex], OtherScore = other.Score };
+            return new NewScore { ScorerScore=   _gameScoreOptions[++scoreIndex], OtherScore = other.Score.GameScore };
         }
  
 
         public void GameOver(string  playerName)
         {
-            Console.WriteLine($"Player {playerName} has won");
-            throw new Exception("Game Over");
+            Console.WriteLine($"Player {playerName} has won a game");
+            // throw new Exception("Game Over");
         }
     }
 }

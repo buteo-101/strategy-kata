@@ -8,6 +8,12 @@ namespace StrategyConsole.Model
     {
    
         public string Name { get; set; }
-        public string Score { get; set; }
+        public Score Score { get; set; }
+    }
+
+    public class Score
+    {
+        public string GameScore { get; set; }
+        public List<int> SetScores { get; set; }
     }
 }

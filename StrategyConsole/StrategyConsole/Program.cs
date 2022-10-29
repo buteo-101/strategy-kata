@@ -8,68 +8,46 @@ namespace StrategyConsole
     {
         static void Main(string[] args)
         {
-            /*
-            Console.WriteLine("Starting 1st Game");
-            try
-            {
-                var gameHandler = new SimpleGameScoreHandler();
-                var match = new TennisMatch(gameHandler);
 
-                match.PlayerAScore();
-                match.PlayerAScore();
-                match.PlayerBScore();
-                match.PlayerBScore();
-                match.PlayerAScore();
-                match.PlayerAScore();
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"{e.Message}");
-            }
-
-            Console.WriteLine("Starting 2nd Game");
-            try
-            {
-                var gameHandler = new DeuceGameScoreHandler();
-                var match = new TennisMatch(gameHandler);
-                match.PlayerAScore();
-                match.PlayerAScore();
-                match.PlayerBScore();
-                match.PlayerBScore();
-                match.PlayerAScore();
-                match.PlayerBScore();
-                match.PlayerAScore();
-                match.PlayerBScore();
-                match.PlayerAScore();
-                match.PlayerAScore();
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"{e.Message}");
-            }
-            */
-            Console.WriteLine("Starting 3rd Game");
+            Console.WriteLine("Starting Game");
 
             try
             {
                 var firstGameHandler = new SimpleGameScoreHandler();
                 var secondGameHandler = new DeuceGameScoreHandler();
-                var match = new TennisMatch(firstGameHandler);
+                var setHandler = new SimpleSetScoreHandler();
 
-                match.PlayerAScore();
-                match.PlayerAScore();
+                var match = new TennisMatch(firstGameHandler, setHandler);
+                // first game 
+                match.PlayerScore("Player A");
+                match.PlayerScore("Player A");
                 Console.WriteLine("Changing rule");
-                match.ChangeRule(secondGameHandler);
-                match.PlayerBScore();
-                match.PlayerBScore();
-                match.PlayerAScore();
-                match.PlayerBScore();
-                match.PlayerAScore();
-                match.PlayerBScore();
-                match.PlayerAScore();
-                match.PlayerAScore();
+                match.ChangeRule(secondGameHandler, setHandler);
+                match.PlayerScore("Player B");
+                match.PlayerScore("Player B");
+                match.PlayerScore("Player A");
+                match.PlayerScore("Player B");
+                match.PlayerScore("Player A");
+                match.PlayerScore("Player B");
+                match.PlayerScore("Player A");
+                match.PlayerScore("Player A");
+
+                for (int i = 0; i < 6; i++)
+                {
+                    match.PlayerScore("Player A");
+                    match.PlayerScore("Player A");
+                    match.PlayerScore("Player A");
+                    match.PlayerScore("Player A");
+                }
+                for (int i = 0; i < 6; i++)
+                {
+
+                    match.PlayerScore("Player B");
+                    match.PlayerScore("Player B");
+                    match.PlayerScore("Player B");
+                    match.PlayerScore("Player B");
+
+                }
             }
             catch (Exception e)
             {

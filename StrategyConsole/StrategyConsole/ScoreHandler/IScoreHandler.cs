@@ -11,5 +11,6 @@ namespace StrategyConsole.ScoreHandler
         NewScore GetNextScore(Player scorer, Player other);
 
         void GameOver(string playerName);
+
     }
 }
