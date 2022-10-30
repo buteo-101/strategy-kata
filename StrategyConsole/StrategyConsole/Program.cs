@@ -10,27 +10,37 @@ namespace StrategyConsole
         {
 
             Console.WriteLine("Starting Game");
+            var deuceGameHandler = new DeuceGameScoreHandler();
+            var setHandler = new SetWithTieBreakScoreHandler();
+            var tieBreakGameHandler = new TieBreakScoreHandler();
+            var match = new TennisMatch(deuceGameHandler, setHandler);
 
             try
             {
-                var firstGameHandler = new SimpleGameScoreHandler();
-                var secondGameHandler = new DeuceGameScoreHandler();
-                var setHandler = new SimpleSetScoreHandler();
 
-                var match = new TennisMatch(firstGameHandler, setHandler);
-                // first game 
-                match.PlayerScore("Player A");
-                match.PlayerScore("Player A");
-                Console.WriteLine("Changing rule");
-                match.ChangeRule(secondGameHandler, setHandler);
-                match.PlayerScore("Player B");
-                match.PlayerScore("Player B");
-                match.PlayerScore("Player A");
-                match.PlayerScore("Player B");
-                match.PlayerScore("Player A");
-                match.PlayerScore("Player B");
-                match.PlayerScore("Player A");
-                match.PlayerScore("Player A");
+                
+
+                match.RuleChanged += (o, e) =>
+                {
+                    {
+                        switch (e)
+                        {
+                            case "deuce":
+                                Console.WriteLine("Switching to tie deuce rule");
+                                match.ChangeRule(deuceGameHandler, setHandler);
+                                break;
+                            case "tie-break":
+                                Console.WriteLine("Switching to tie break rule");
+                                match.ChangeRule(tieBreakGameHandler, setHandler);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                };
+                    
+                   
+     
 
                 for (int i = 0; i < 6; i++)
                 {
@@ -48,6 +58,27 @@ namespace StrategyConsole
                     match.PlayerScore("Player B");
 
                 }
+                match.PlayerScore("Player A");
+                match.PlayerScore("Player A");
+                match.PlayerScore("Player A");
+                match.PlayerScore("Player A");
+                match.PlayerScore("Player A");
+                match.PlayerScore("Player A");
+                match.PlayerScore("Player B");
+                match.PlayerScore("Player B");
+                match.PlayerScore("Player B");
+                match.PlayerScore("Player B");
+                match.PlayerScore("Player A");
+               
+                for (int i = 0; i < 6; i++)
+                {
+                    match.PlayerScore("Player A");
+                    match.PlayerScore("Player A");
+                    match.PlayerScore("Player A");
+                    match.PlayerScore("Player A");
+                }
+
+                match.PlayerScore("Player A");
             }
             catch (Exception e)
             {
@@ -59,5 +90,7 @@ namespace StrategyConsole
 
 
         }
+
+     
     }
 }

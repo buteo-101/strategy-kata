@@ -8,11 +8,15 @@ using System.Text.Json;
 
 namespace StrategyConsole.Match
 {
+
+  
     public class TennisMatch
     {
 
         private IScoreHandler _gameScoreHandler;
         private IScoreHandler _setScoreHandler;
+
+        public event EventHandler<string> RuleChanged;
 
         public List<Player> Players { get; set; } = new List<Player>
             {
@@ -59,17 +63,27 @@ namespace StrategyConsole.Match
                 other.Score.GameScore = "0";
 
                 var newSetScore = _setScoreHandler.GetNextScore(scorer, other);
+                // --
+                 var activeSetIndex = scorer.Score.SetScores.Count - 1;
                 if (!string.IsNullOrEmpty(newSetScore.ScorerScore))
                 {
-                    var activeSetIndex = scorer.Score.SetScores.Count - 1;
                     Console.WriteLine($"Active set {activeSetIndex}");
                     scorer.Score.SetScores[activeSetIndex] = int.Parse(newSetScore.ScorerScore);
                     other.Score.SetScores[activeSetIndex] = int.Parse(newSetScore.OtherScore);
                     Console.WriteLine($"{JsonSerializer.Serialize(Players)}");
-                } 
+                    // Notify tie break rule if set score is 6 6 
+                    if (scorer.Score.SetScores[activeSetIndex] == 6 && other.Score.SetScores[activeSetIndex] == 6)
+                    {
+                        RuleChanged.Invoke(this, "tie-break");
+                    }
+                }
                 else
                 {
+                    // a set has been won
                     Console.WriteLine($"{scorer.Name} has won the Set");
+                    scorer.Score.SetScores[activeSetIndex]++; ;
+                    // Reset game rule chance to Deuce
+                    RuleChanged.Invoke(this, "deuce");
                     // creates a new set 
                     scorer.Score.SetScores.Add(0);
                     other.Score.SetScores.Add(0);
